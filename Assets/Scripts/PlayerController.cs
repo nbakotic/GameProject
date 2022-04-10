@@ -23,13 +23,23 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float _airLienarDrag = 2.5f;
     [SerializeField] private float _fallMultiplier = 8f;
     [SerializeField] private float _lowJumpFallMultiplier = 5f;
-    private bool _canJump => Input.GetButtonDown("Jump") && _onGround;
+    [SerializeField] private float _hangTime = .1f;
+    [SerializeField] private float _hangTimeCounter;
+    [SerializeField] private float _jumpBufferLength = .1f;
+    [SerializeField] private float _jumpBufferCounter;
+    private bool _canJump => _jumpBufferCounter > 0 && _hangTimeCounter > 0f;
 
     [Header("Ground Collision Variables")]
     [SerializeField] private float _groundRaycastLength;
     [SerializeField] private Vector3 _groundRaycastOffset;
     private bool _onGround;
-    
+
+    [Header("Corner Correction Variables")]
+    [SerializeField] private float _topRaycastLength;
+    [SerializeField] Vector3 _edgeRaycastOffset;
+    [SerializeField] Vector3 _innerRaycastOffset;
+    private bool _canCornerCorrect;
+
     void Start()
     {
         _rb = GetComponent<Rigidbody2D>();
@@ -38,8 +48,21 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         _horizontalDirection = GetInput().x;
-        if (_canJump) Jump();
+        if (Input.GetButtonDown("Jump"))
+        {
+            _jumpBufferCounter = _jumpBufferLength;
+        }
+        else
+        {
+            _jumpBufferCounter -= Time.deltaTime;
+        }
+
+        if (_canJump)
+        {
+            Jump();
+        }
     }
+
 
     private void FixedUpdate()
     {
@@ -48,12 +71,15 @@ public class PlayerController : MonoBehaviour
         if (_onGround)
         {
             ApplyGroundLinearDrag();
+            _hangTimeCounter = _hangTime;
         }
         else
         {
             ApplyAirLinearDrag();
             FallMultiplier();
+            _hangTimeCounter -= Time.deltaTime;
         }
+        if (_canCornerCorrect) CornerCorrect(_rb.velocity.y);
     }
 
     private Vector2 GetInput()
@@ -91,18 +117,62 @@ public class PlayerController : MonoBehaviour
     {
         _rb.velocity = new Vector2(_rb.velocity.x, 0f);
         _rb.AddForce(Vector2.up * _jumpForce, ForceMode2D.Impulse);
+        _hangTimeCounter = 0f;
+        _jumpBufferCounter = 0f;
+    }
+
+    void CornerCorrect (float Yvelocity)
+    {
+        RaycastHit2D _hit = Physics2D.Raycast(transform.position - _innerRaycastOffset + Vector3.up * _topRaycastLength, Vector3.left, _topRaycastLength, _groundLayer);
+        if (_hit.collider != null)
+        {
+            float _newPos = Vector3.Distance(new Vector3(_hit.point.x, transform.position.y, 0f) + Vector3.up * _topRaycastLength, transform.position - _edgeRaycastOffset + Vector3.up * _topRaycastLength);
+            transform.position = new Vector3(transform.position.x + _newPos, transform.position.y, transform.position.z);
+            _rb.velocity = new Vector2(_rb.velocity.x, Yvelocity);
+            return;
+        }
+
+        _hit = Physics2D.Raycast(transform.position - _innerRaycastOffset + Vector3.up * _topRaycastLength, Vector3.right, _topRaycastLength, _groundLayer);
+        if (_hit.collider != null)
+        {
+            float _newPos = Vector3.Distance(new Vector3(_hit.point.x, transform.position.y, 0f) + Vector3.up * _topRaycastLength, transform.position + _edgeRaycastOffset + Vector3.up * _topRaycastLength);
+            transform.position = new Vector3(transform.position.x - _newPos, transform.position.y, transform.position.z);
+            _rb.velocity = new Vector2(_rb.velocity.x, Yvelocity);
+        }
     }
 
     private void CheckCollisions()
     {
+        //Ground Collisions
         _onGround = Physics2D.Raycast(transform.position + _groundRaycastOffset, Vector2.down, _groundRaycastLength, _groundLayer) ||
                     Physics2D.Raycast(transform.position - _groundRaycastOffset, Vector2.down, _groundRaycastLength, _groundLayer);
+
+        //Corner Collisions
+        _canCornerCorrect = Physics2D.Raycast(transform.position + _edgeRaycastOffset, Vector2.up, _topRaycastLength, _groundLayer) &&
+                            !Physics2D.Raycast(transform.position + _innerRaycastOffset, Vector2.up, _topRaycastLength, _groundLayer) ||
+                            Physics2D.Raycast(transform.position - _edgeRaycastOffset, Vector2.up, _topRaycastLength, _groundLayer) &&
+                            !Physics2D.Raycast(transform.position - _innerRaycastOffset, Vector2.up, _topRaycastLength, _groundLayer);
     }
 
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.green;
-        Gizmos.DrawLine(transform.position, transform.position + Vector3.down * _groundRaycastLength);
+
+        //Ground check
+        Gizmos.DrawLine(transform.position + _groundRaycastOffset, transform.position + _groundRaycastOffset + Vector3.down * _groundRaycastLength);
+        Gizmos.DrawLine(transform.position - _groundRaycastOffset, transform.position - _groundRaycastOffset + Vector3.down * _groundRaycastLength);
+
+        //Corner check
+        Gizmos.DrawLine(transform.position + _edgeRaycastOffset, transform.position + _edgeRaycastOffset + Vector3.up * _topRaycastLength);
+        Gizmos.DrawLine(transform.position - _edgeRaycastOffset, transform.position - _edgeRaycastOffset + Vector3.up * _topRaycastLength);
+        Gizmos.DrawLine(transform.position + _innerRaycastOffset, transform.position + _innerRaycastOffset + Vector3.up * _topRaycastLength);
+        Gizmos.DrawLine(transform.position - _innerRaycastOffset, transform.position - _innerRaycastOffset + Vector3.up * _topRaycastLength);
+
+        //Corner distance check
+        Gizmos.DrawLine(transform.position - _innerRaycastOffset + Vector3.up * _topRaycastLength, 
+                        transform.position - _innerRaycastOffset + Vector3.up * _topRaycastLength + Vector3.left * _topRaycastLength);
+        Gizmos.DrawLine(transform.position + _innerRaycastOffset + Vector3.up * _topRaycastLength,
+                        transform.position + _innerRaycastOffset + Vector3.up * _topRaycastLength + Vector3.right * _topRaycastLength);
     }
 
     private void FallMultiplier()
