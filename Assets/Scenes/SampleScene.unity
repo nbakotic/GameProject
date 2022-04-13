@@ -707,6 +707,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   projectile: {fileID: 1393381692396101975, guid: 21c677260afff6a448b0a1e007b6db6c, type: 3}
+  projectileVelocity: 500
 --- !u!1 &2038423261
 GameObject:
   m_ObjectHideFlags: 0
