@@ -2209,7 +2209,7 @@ GameObject:
   - component: {fileID: 7778295918566829817}
   - component: {fileID: 7778295918566829822}
   m_Layer: 6
-  m_Name: Spiked seqtion 2
+  m_Name: Spiked section 2
   m_TagString: Platform
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
