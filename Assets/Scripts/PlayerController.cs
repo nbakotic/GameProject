@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour
 
     [Header("Layer Masks")]
     [SerializeField] private LayerMask _groundLayer;
+    [SerializeField] private LayerMask _wallLayer;
 
     [Header("Movement Variables")]
     [SerializeField] private float _movementAcceleration;
@@ -24,15 +25,27 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float _fallMultiplier = 8f;
     [SerializeField] private float _lowJumpFallMultiplier = 5f;
     [SerializeField] private float _hangTime = .1f;
-    [SerializeField] private float _hangTimeCounter;
     [SerializeField] private float _jumpBufferLength = .1f;
-    [SerializeField] private float _jumpBufferCounter;
-    private bool _canJump => _jumpBufferCounter > 0 && _hangTimeCounter > 0f;
+    private float _hangTimeCounter;
+    private float _jumpBufferCounter;
+    private bool _canJump => _jumpBufferCounter > 0 && (_hangTimeCounter > 0f || _onWall);
+    private bool _isJumping = false;
+
+    [Header("Wall Movement Variables")]
+    [SerializeField] private float _wallSlideModifier = 0.5f;
+    [SerializeField] private float _wallJumpXVelocityHaltDelay = 0.2f;
+    private bool _wallGrab => _onWall && !_onGround;
+    private bool _wallSlide => _onWall && !_onGround && _wallGrab;
 
     [Header("Ground Collision Variables")]
     [SerializeField] private float _groundRaycastLength;
     [SerializeField] private Vector3 _groundRaycastOffset;
     private bool _onGround;
+
+    [Header("Wall Collision Variables")]
+    [SerializeField] private float _wallRaycastLength;
+    private bool _onWall;
+    private bool _onRightWall;
 
     [Header("Corner Correction Variables")]
     [SerializeField] private float _topRaycastLength;
@@ -59,7 +72,20 @@ public class PlayerController : MonoBehaviour
 
         if (_canJump)
         {
-            Jump();
+            if (_onWall && !_onGround)
+            {
+                if (_onRightWall && _horizontalDirection > 0f || !_onRightWall && _horizontalDirection < 0f)
+                {
+                    StartCoroutine(NeutralWallJump());
+                }
+                else
+                {
+                    WallJump();
+                }
+            } else
+            {
+                Jump(Vector2.up);
+            }
         }
     }
 
@@ -77,9 +103,16 @@ public class PlayerController : MonoBehaviour
         {
             ApplyAirLinearDrag();
             FallMultiplier();
-            _hangTimeCounter -= Time.deltaTime;
+            _hangTimeCounter -= Time.fixedDeltaTime;
+            if (!_onWall || _rb.velocity.y < 0f) _isJumping = false;
         }
         if (_canCornerCorrect) CornerCorrect(_rb.velocity.y);
+       if (!_isJumping)
+        {
+            if (_wallGrab) WallGrab();
+            if (_wallSlide) WallSlide();
+            if (_onWall) StickToWall();
+        }
     }
 
     private Vector2 GetInput()
@@ -113,12 +146,28 @@ public class PlayerController : MonoBehaviour
         _rb.drag = _airLienarDrag;
     }
 
-    private void Jump()
+    private void Jump(Vector2 direction)
     {
+        ApplyAirLinearDrag();
         _rb.velocity = new Vector2(_rb.velocity.x, 0f);
-        _rb.AddForce(Vector2.up * _jumpForce, ForceMode2D.Impulse);
+        _rb.AddForce(direction * _jumpForce, ForceMode2D.Impulse);
         _hangTimeCounter = 0f;
         _jumpBufferCounter = 0f;
+        _isJumping = true;
+    }
+
+    private void WallJump()
+    {
+        Vector2 jumpDirection = _onRightWall ? Vector2.left : Vector2.right;
+        Jump(Vector2.up + jumpDirection);
+    }
+
+    IEnumerator NeutralWallJump()
+    {
+        Vector2 jumpDirection = _onRightWall ? Vector2.left : Vector2.right;
+        Jump(Vector2.up + jumpDirection);
+        yield return new WaitForSeconds(_wallJumpXVelocityHaltDelay);
+        _rb.velocity = new Vector2(0f, _rb.velocity.y);
     }
 
     void CornerCorrect (float Yvelocity)
@@ -152,6 +201,11 @@ public class PlayerController : MonoBehaviour
                             !Physics2D.Raycast(transform.position + _innerRaycastOffset, Vector2.up, _topRaycastLength, _groundLayer) ||
                             Physics2D.Raycast(transform.position - _edgeRaycastOffset, Vector2.up, _topRaycastLength, _groundLayer) &&
                             !Physics2D.Raycast(transform.position - _innerRaycastOffset, Vector2.up, _topRaycastLength, _groundLayer);
+
+        //Wall Collisions
+        _onWall = Physics2D.Raycast(transform.position, Vector2.right, _wallRaycastLength, _wallLayer) ||
+                  Physics2D.Raycast(transform.position, Vector2.left, _wallRaycastLength, _wallLayer);
+        _onRightWall = Physics2D.Raycast(transform.position, Vector2.right, _wallRaycastLength, _wallLayer);
     }
 
     private void OnDrawGizmos()
@@ -173,6 +227,10 @@ public class PlayerController : MonoBehaviour
                         transform.position - _innerRaycastOffset + Vector3.up * _topRaycastLength + Vector3.left * _topRaycastLength);
         Gizmos.DrawLine(transform.position + _innerRaycastOffset + Vector3.up * _topRaycastLength,
                         transform.position + _innerRaycastOffset + Vector3.up * _topRaycastLength + Vector3.right * _topRaycastLength);
+
+        //Wall check
+        Gizmos.DrawLine(transform.position, transform.position + Vector3.right * _wallRaycastLength);
+        Gizmos.DrawLine(transform.position, transform.position + Vector3.left * _wallRaycastLength);
     }
 
     private void FallMultiplier()
@@ -188,6 +246,29 @@ public class PlayerController : MonoBehaviour
         else
         {
             _rb.gravityScale = 1f;
+        }
+    }
+
+    void WallGrab()
+    {
+        _rb.gravityScale = 0f;
+        _rb.velocity = new Vector2(_rb.velocity.x, 0f);
+    }
+
+    void WallSlide()
+    {
+        _rb.velocity = new Vector2(_rb.velocity.x, -_maxMoveSpeed * _wallSlideModifier);
+    }
+
+    void StickToWall()
+    {
+        if (_onRightWall && _horizontalDirection >= 0)
+        {
+            _rb.velocity = new Vector2(1f, _rb.velocity.y);
+        }
+        else if (!_onRightWall && _horizontalDirection <= 0f)
+        {
+            _rb.velocity = new Vector2(-1f, _rb.velocity.y);
         }
     }
 }
