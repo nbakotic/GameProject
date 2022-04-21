@@ -8,6 +8,7 @@ public class Weapon : MonoBehaviour
 
     public GameObject projectile;
     public float projectileVelocity;
+    public bool despawnProjectileOnImpact = true;
 
     void Start()
     {
@@ -25,6 +26,10 @@ public class Weapon : MonoBehaviour
         {
             GameObject projectileInst = Instantiate(projectile, projectileOrigin.transform.position, projectileOrigin.transform.rotation);
             projectileInst.GetComponent<Rigidbody2D>().AddForce((worldMousePos - transform.parent.transform.position) * projectileVelocity);
+            if (despawnProjectileOnImpact)
+            {
+                projectileInst.AddComponent<Projectile>();
+            }
         }
     }
 }
