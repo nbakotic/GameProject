@@ -107,7 +107,7 @@ public class PlayerController : MonoBehaviour
             if (!_onWall || _rb.velocity.y < 0f) _isJumping = false;
         }
         if (_canCornerCorrect) CornerCorrect(_rb.velocity.y);
-       if (!_isJumping)
+        if (!_isJumping)
         {
             if (_wallGrab) WallGrab();
             if (_wallSlide) WallSlide();
@@ -117,12 +117,15 @@ public class PlayerController : MonoBehaviour
 
     private Vector2 GetInput()
     {
+        /* Creates a 2D vector from WASD input */
         return new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
     }
 
 
     private void MoveCharacter()
     {
+        /* Applies a force to rigidbody to move it horizontally, checks if max velocity is reached
+           and corrects it to the max value */
         _rb.AddForce(new Vector2(_horizontalDirection, 0f) * _movementAcceleration);
 
         if (Mathf.Abs(_rb.velocity.x) > _maxMoveSpeed)
@@ -131,6 +134,7 @@ public class PlayerController : MonoBehaviour
 
     private void ApplyGroundLinearDrag()
     {
+        /* Applies ground drag to rigidbody if its velocity is less than 0.4 or it changes direction */
         if (Mathf.Abs(_horizontalDirection) < 0.4f || _changingDirection)
         {
             _rb.drag = _groundLinearDrag;
@@ -143,14 +147,17 @@ public class PlayerController : MonoBehaviour
 
     private void ApplyAirLinearDrag()
     {
+        /* Applies air linear drag to rigodbody */
         _rb.drag = _airLienarDrag;
     }
 
     private void Jump(Vector2 direction)
     {
+        /* Apply a force to rigidbody to simulate jumping, sets hang and jump buffr counters to zero */
         ApplyAirLinearDrag();
         _rb.velocity = new Vector2(_rb.velocity.x, 0f);
         _rb.AddForce(direction * _jumpForce, ForceMode2D.Impulse);
+
         _hangTimeCounter = 0f;
         _jumpBufferCounter = 0f;
         _isJumping = true;
@@ -158,12 +165,14 @@ public class PlayerController : MonoBehaviour
 
     private void WallJump()
     {
+        /* Wall jump, jumps opposite of the wall */
         Vector2 jumpDirection = _onRightWall ? Vector2.left : Vector2.right;
         Jump(Vector2.up + jumpDirection);
     }
 
     IEnumerator NeutralWallJump()
     {
+        /* Neutral wall jump, acts as if normal jump is done on a wall by introducing a coroutine delay */
         Vector2 jumpDirection = _onRightWall ? Vector2.left : Vector2.right;
         Jump(Vector2.up + jumpDirection);
         yield return new WaitForSeconds(_wallJumpXVelocityHaltDelay);
@@ -172,6 +181,11 @@ public class PlayerController : MonoBehaviour
 
     void CornerCorrect (float Yvelocity)
     {
+        /* When the player is a few pixels under an obstacle, raycasts will detect it and the player will 
+         * be moved in the appropriate direction by those few pixels. Resulting velocity vector will also 
+         * be adjusted to match jumping from the corrected position. This prevents the player from bumping 
+         * into the ceiling by a few pixels and provides a smoother movement experience. */
+
         RaycastHit2D _hit = Physics2D.Raycast(transform.position - _innerRaycastOffset + Vector3.up * _topRaycastLength, Vector3.left, _topRaycastLength, _groundLayer);
         if (_hit.collider != null)
         {
@@ -192,17 +206,18 @@ public class PlayerController : MonoBehaviour
 
     private void CheckCollisions()
     {
-        //Ground Collisions
+        /* Raycasts that check 1) collisions with the ground, 2) corners of platforms above the players and 3) walls */
+        // 1) Ground Collisions
         _onGround = Physics2D.Raycast(transform.position + _groundRaycastOffset, Vector2.down, _groundRaycastLength, _groundLayer) ||
                     Physics2D.Raycast(transform.position - _groundRaycastOffset, Vector2.down, _groundRaycastLength, _groundLayer);
 
-        //Corner Collisions
+        // 2) Corner Collisions
         _canCornerCorrect = Physics2D.Raycast(transform.position + _edgeRaycastOffset, Vector2.up, _topRaycastLength, _groundLayer) &&
                             !Physics2D.Raycast(transform.position + _innerRaycastOffset, Vector2.up, _topRaycastLength, _groundLayer) ||
                             Physics2D.Raycast(transform.position - _edgeRaycastOffset, Vector2.up, _topRaycastLength, _groundLayer) &&
                             !Physics2D.Raycast(transform.position - _innerRaycastOffset, Vector2.up, _topRaycastLength, _groundLayer);
 
-        //Wall Collisions
+        // 3) Wall Collisions
         _onWall = Physics2D.Raycast(transform.position, Vector2.right, _wallRaycastLength, _wallLayer) ||
                   Physics2D.Raycast(transform.position, Vector2.left, _wallRaycastLength, _wallLayer);
         _onRightWall = Physics2D.Raycast(transform.position, Vector2.right, _wallRaycastLength, _wallLayer);
@@ -210,6 +225,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnDrawGizmos()
     {
+        /* Draws gizmos for the raycasts */
         Gizmos.color = Color.green;
 
         //Ground check
@@ -235,6 +251,7 @@ public class PlayerController : MonoBehaviour
 
     private void FallMultiplier()
     {
+        /* Applies a multiplier to gravity of rigidbody, simulates acceleration */
         if (_rb.velocity.y < 0)
         {
             _rb.gravityScale = _fallMultiplier;
@@ -251,17 +268,21 @@ public class PlayerController : MonoBehaviour
 
     void WallGrab()
     {
+        /* Ensures that rigidbody sticks to wall when it collides with it by setting y component of vector to 0*/
         _rb.gravityScale = 0f;
         _rb.velocity = new Vector2(_rb.velocity.x, 0f);
     }
 
     void WallSlide()
     {
+        /* Rigidbody begins to slide down the wall with a specified modifier*/
         _rb.velocity = new Vector2(_rb.velocity.x, -_maxMoveSpeed * _wallSlideModifier);
     }
 
     void StickToWall()
     {
+        /* Ensures that rigidbody sticks to the wall when wall raycast detects collsion that is a few pixels off
+           by moving rigidbody in the correct direction */
         if (_onRightWall && _horizontalDirection >= 0)
         {
             _rb.velocity = new Vector2(1f, _rb.velocity.y);
