@@ -1236,6 +1236,7 @@ GameObject:
   - component: {fileID: 2052313596}
   - component: {fileID: 2052313595}
   - component: {fileID: 2052313601}
+  - component: {fileID: 2052313602}
   m_Layer: 0
   m_Name: Guard
   m_TagString: Untagged
@@ -1400,3 +1401,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyVelocity: 2
+--- !u!114 &2052313602
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2052313594}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8617a0fc8fa8ef84d8a176bf50f8922f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
