@@ -30,11 +30,6 @@ public class GuardEnemyController : MonoBehaviour
         enemyVelocity *= -1;
     }
 
-    void OnCollisionEnter2D(Collision2D coll)
-    {
-        if(coll.gameObject.tag == "Projectile"){
-            Destroy(this.gameObject);
-        }
-    }
+    
 
 }
