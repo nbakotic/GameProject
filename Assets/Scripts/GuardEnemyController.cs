@@ -27,7 +27,10 @@ public class GuardEnemyController : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D col)
     {
-        enemyVelocity *= -1;
+        
+        if(col.gameObject.tag != "Player"){
+                enemyVelocity *= -1;
+        }
     }
 
     
