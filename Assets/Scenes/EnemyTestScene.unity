@@ -1050,6 +1050,8 @@ GameObject:
   - component: {fileID: 2038423263}
   - component: {fileID: 2038423267}
   - component: {fileID: 2038423262}
+  - component: {fileID: 2038423268}
+  - component: {fileID: 2038423269}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -1221,6 +1223,38 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &2038423268
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2038423261}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23410f7133b180a4b88cd1622ce5da54, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  FallDetector: {fileID: 0}
+--- !u!95 &2038423269
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2038423261}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 99bffdb7d8c64ac4cbafeaab065688b6, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &2052313594
 GameObject:
   m_ObjectHideFlags: 0

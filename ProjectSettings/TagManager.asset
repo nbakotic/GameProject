@@ -7,6 +7,8 @@ TagManager:
   - Platform
   - hostile
   - Projectile
+  - Trap
+  - FallDetector
   layers:
   - Default
   - TransparentFX
