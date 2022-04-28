@@ -32,20 +32,18 @@ public class PlayerDeath : MonoBehaviour
         if (collision.gameObject.CompareTag("FallDetector"))
         {
 
-            Die();
-        }
-        if (collision.gameObject.CompareTag("hostile"))
-        {
-            Die();
-        }
-    }
-    private void Die()
-    {
-        rb.bodyType = RigidbodyType2D.Static;
-        anim.SetTrigger("Death");
-    }
-    private void RestartLevel()
-    {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-    }
+           Die();
+       }
+
+       if(collision.gameObject.CompareTag("hostile")){
+           Die();
+       }
+   }
+   private void Die(){
+       rb.bodyType = RigidbodyType2D.Static;
+       anim.SetTrigger("Death");
+   }
+   private void RestartLevel(){
+       SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+   }
 }
