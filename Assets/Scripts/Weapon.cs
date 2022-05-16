@@ -1,28 +1,29 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Weapon : MonoBehaviour
 {
-    private GameObject projectileOrigin;
+    protected GameObject projectileOrigin;
+    protected Vector3 aimVector;
+    protected bool canShoot = true;
 
-    public GameObject projectile;
-    public float projectileVelocity;
-    public bool despawnProjectileOnImpact = true;
+    [SerializeField] protected GameObject projectile;
+    [SerializeField] protected float projectileLaunchVelocity;
+    [SerializeField] protected int shotsPerSecond;
+    [SerializeField] protected bool despawnProjectileOnImpact = true;
 
     void Start()
     {
         projectileOrigin = transform.Find("ProjectileOrigin").gameObject;
     }
 
-    void Update()
+    protected void Update()
     {
         // Get the position of the mouse in the world coordinates
         Vector3 screenMousePos = Input.mousePosition;
         screenMousePos.z = 10f;
         Vector3 worldMousePos = Camera.main.ScreenToWorldPoint(screenMousePos);
 
-        Vector3 aimVector = Vector3.Normalize(worldMousePos - transform.parent.transform.position);
+        aimVector = Vector3.Normalize(worldMousePos - transform.parent.transform.position);
 
         // Rotate the weapon object towards the aim position
         transform.localRotation = Quaternion.FromToRotation(Vector3.right, aimVector);
@@ -30,15 +31,27 @@ public class Weapon : MonoBehaviour
         // If left mouse clicked
         if (Input.GetMouseButtonDown(0))
         {
-            // Create new projectile object and give it force
-            GameObject projectileInst = Instantiate(projectile, projectileOrigin.transform.position, projectileOrigin.transform.rotation);
-            projectileInst.GetComponent<Rigidbody2D>().AddForce(aimVector * projectileVelocity);
-
-            // If flag "despawnProjectileOnImpact" is enabled add a script to the projectile that despawns it on impact
-            if (despawnProjectileOnImpact)
-            {
-                projectileInst.AddComponent<Projectile>();
-            }
+            PullTrigger();
         }
+
     }
+
+    void PullTrigger()
+    {
+        if (!canShoot) {return;}
+
+        // Call method in subclass
+        Shoot();
+
+        canShoot = false;
+        Invoke("EnableFire", 1f / shotsPerSecond);
+    }
+
+    void EnableFire()
+    {
+        canShoot = true;
+    }
+
+    // Method that is implemented inside sublasses
+    protected virtual void Shoot() {}
 }
