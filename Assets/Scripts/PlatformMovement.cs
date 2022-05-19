@@ -9,7 +9,7 @@ public class PlatformMovement : MonoBehaviour
 
     [SerializeField] private float speed = 2f;
 
-    private void Update()
+    private void FixedUpdate()
     {
         //Controlls which waypoint is being moved towards
         if (Vector2.Distance(waypoints[currentWaypointIndex].transform.position, transform.position) < .1f)
