@@ -11,7 +11,7 @@ public class Weapon : MonoBehaviour
     [SerializeField] protected int shotsPerSecond;
     [SerializeField] protected bool despawnProjectileOnImpact = true;
 
-    void Start()
+    protected void Start()
     {
         projectileOrigin = transform.Find("ProjectileOrigin").gameObject;
     }
