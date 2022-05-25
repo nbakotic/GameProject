@@ -6,6 +6,13 @@ public class Projectile : MonoBehaviour
 {
     void OnCollisionEnter2D(Collision2D collision)
     {
-        Destroy(gameObject);
+        if (collision.gameObject.tag == "Projectile")
+        {
+            Physics2D.IgnoreCollision(collision.gameObject.GetComponent<Collider2D>(), GetComponent<Collider2D>());
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 }
