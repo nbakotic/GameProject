@@ -15,21 +15,26 @@ public class PlayerDeath : MonoBehaviour
         anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
     }
-    void Update(){
+    void Update()
+    {
         //moves position of fall detector according to player position
         FallDetector.transform.position = new Vector2(transform.position.x, FallDetector.transform.position.y);
     }
 
-   private void OnCollisionEnter2D(Collision2D collision){
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
 
-       if (collision.gameObject.CompareTag("Trap")){
+        if (collision.gameObject.CompareTag("Trap"))
+        {
+
+            Die();
+        }
+        if (collision.gameObject.CompareTag("FallDetector"))
+        {
 
            Die();
        }
-       if (collision.gameObject.CompareTag("FallDetector")){
 
-           Die();
-       }
        if(collision.gameObject.CompareTag("hostile")){
            Die();
        }

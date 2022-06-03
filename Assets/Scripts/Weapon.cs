@@ -38,7 +38,7 @@ public class Weapon : MonoBehaviour
 
     void PullTrigger()
     {
-        if (!canShoot) {return;}
+        if (!canShoot) { return; }
 
         // Call method in subclass
         Shoot();
@@ -53,5 +53,5 @@ public class Weapon : MonoBehaviour
     }
 
     // Method that is implemented inside sublasses
-    protected virtual void Shoot() {}
+    protected virtual void Shoot() { }
 }

@@ -82,7 +82,8 @@ public class PlayerController : MonoBehaviour
                 {
                     WallJump();
                 }
-            } else
+            }
+            else
             {
                 Jump(Vector2.up);
             }
@@ -179,7 +180,7 @@ public class PlayerController : MonoBehaviour
         _rb.velocity = new Vector2(0f, _rb.velocity.y);
     }
 
-    void CornerCorrect (float Yvelocity)
+    void CornerCorrect(float Yvelocity)
     {
         /* When the player is a few pixels under an obstacle, raycasts will detect it and the player will 
          * be moved in the appropriate direction by those few pixels. Resulting velocity vector will also 
@@ -239,7 +240,7 @@ public class PlayerController : MonoBehaviour
         Gizmos.DrawLine(transform.position - _innerRaycastOffset, transform.position - _innerRaycastOffset + Vector3.up * _topRaycastLength);
 
         //Corner distance check
-        Gizmos.DrawLine(transform.position - _innerRaycastOffset + Vector3.up * _topRaycastLength, 
+        Gizmos.DrawLine(transform.position - _innerRaycastOffset + Vector3.up * _topRaycastLength,
                         transform.position - _innerRaycastOffset + Vector3.up * _topRaycastLength + Vector3.left * _topRaycastLength);
         Gizmos.DrawLine(transform.position + _innerRaycastOffset + Vector3.up * _topRaycastLength,
                         transform.position + _innerRaycastOffset + Vector3.up * _topRaycastLength + Vector3.right * _topRaycastLength);
