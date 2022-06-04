@@ -293,6 +293,26 @@ PrefabInstance:
       value: LevelGeneration
       objectReference: {fileID: 0}
     - target: {fileID: 3946142146053317159, guid: 6aa8641360141914996d3e4e7cc7ee52, type: 3}
+      propertyPath: roomsArray.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3946142146053317159, guid: 6aa8641360141914996d3e4e7cc7ee52, type: 3}
+      propertyPath: roomsArray.Array.data[0]
+      value: 
+      objectReference: {fileID: 4322534613042966094, guid: a6709dc8537b78f43863a79af2482a7c, type: 3}
+    - target: {fileID: 3946142146053317159, guid: 6aa8641360141914996d3e4e7cc7ee52, type: 3}
+      propertyPath: roomsArray.Array.data[1]
+      value: 
+      objectReference: {fileID: 161154560760704722, guid: de0b1b185d182c14e860dca331ffc2bb, type: 3}
+    - target: {fileID: 3946142146053317159, guid: 6aa8641360141914996d3e4e7cc7ee52, type: 3}
+      propertyPath: roomsArray.Array.data[2]
+      value: 
+      objectReference: {fileID: 302797312384596967, guid: 971fa6b44f7225043be4d8fb51ba68e3, type: 3}
+    - target: {fileID: 3946142146053317159, guid: 6aa8641360141914996d3e4e7cc7ee52, type: 3}
+      propertyPath: roomsArray.Array.data[3]
+      value: 
+      objectReference: {fileID: 3577509260673450246, guid: 82b58efe4d1e12f4aa132ab427755e15, type: 3}
+    - target: {fileID: 3946142146053317159, guid: 6aa8641360141914996d3e4e7cc7ee52, type: 3}
       propertyPath: _roomsArray.Array.data[0]
       value: 
       objectReference: {fileID: 4322534613042966094, guid: a6709dc8537b78f43863a79af2482a7c, type: 3}
