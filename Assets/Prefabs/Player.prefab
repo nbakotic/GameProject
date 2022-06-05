@@ -31,8 +31,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8388455818686182471}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.03, y: -0.88, z: 0}
-  m_LocalScale: {x: 0.95199436, y: 0.9842, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 5301973996710106300}
   m_Father: {fileID: 0}
@@ -199,7 +199,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23410f7133b180a4b88cd1622ce5da54, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FallDetector: {fileID: 0}
 --- !u!95 &8388455818686182527
 Animator:
   serializedVersion: 3

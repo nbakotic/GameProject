@@ -227,6 +227,11 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &695615379 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8388455818686182471, guid: 73ad36922210f324294ae40fbe012df9, type: 3}
+  m_PrefabInstance: {fileID: 1813230357}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &991310844 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8818661998394630164, guid: c9fd9fc504a58b64dba02a7318bc6a5b, type: 3}
@@ -254,6 +259,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 8388455818686182468, guid: 73ad36922210f324294ae40fbe012df9, type: 3}
+      propertyPath: _jumpForce
+      value: 20
+      objectReference: {fileID: 0}
     - target: {fileID: 8388455818686182471, guid: 73ad36922210f324294ae40fbe012df9, type: 3}
       propertyPath: m_Name
       value: Player
@@ -264,11 +273,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8388455818686182520, guid: 73ad36922210f324294ae40fbe012df9, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 3.46
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8388455818686182520, guid: 73ad36922210f324294ae40fbe012df9, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -2.39
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8388455818686182520, guid: 73ad36922210f324294ae40fbe012df9, type: 3}
       propertyPath: m_LocalPosition.z
@@ -373,6 +382,26 @@ PrefabInstance:
     - target: {fileID: 3946142146053317158, guid: 6aa8641360141914996d3e4e7cc7ee52, type: 3}
       propertyPath: m_Name
       value: LevelGeneration
+      objectReference: {fileID: 0}
+    - target: {fileID: 3946142146053317159, guid: 6aa8641360141914996d3e4e7cc7ee52, type: 3}
+      propertyPath: _exit
+      value: 
+      objectReference: {fileID: 4970927943621106914, guid: 9842791182499124a80a339995544d0c, type: 3}
+    - target: {fileID: 3946142146053317159, guid: 6aa8641360141914996d3e4e7cc7ee52, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 695615379}
+    - target: {fileID: 3946142146053317159, guid: 6aa8641360141914996d3e4e7cc7ee52, type: 3}
+      propertyPath: _player
+      value: 
+      objectReference: {fileID: 695615379}
+    - target: {fileID: 3946142146053317159, guid: 6aa8641360141914996d3e4e7cc7ee52, type: 3}
+      propertyPath: playerCamera
+      value: 
+      objectReference: {fileID: 519420028}
+    - target: {fileID: 3946142146053317159, guid: 6aa8641360141914996d3e4e7cc7ee52, type: 3}
+      propertyPath: _startTimeBetweenRoom
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 3946142146053317159, guid: 6aa8641360141914996d3e4e7cc7ee52, type: 3}
       propertyPath: roomsArray.Array.size
