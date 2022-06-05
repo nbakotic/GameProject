@@ -400,10 +400,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 519420028}
     - target: {fileID: 3946142146053317159, guid: 6aa8641360141914996d3e4e7cc7ee52, type: 3}
-      propertyPath: _startTimeBetweenRoom
-      value: 0.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3946142146053317159, guid: 6aa8641360141914996d3e4e7cc7ee52, type: 3}
       propertyPath: roomsArray.Array.size
       value: 4
       objectReference: {fileID: 0}
