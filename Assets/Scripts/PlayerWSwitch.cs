@@ -65,7 +65,7 @@ public class PlayerWSwitch : MonoBehaviour
         GameObject newDrop = (GameObject)Instantiate(Resources.Load("Weapons/" + weaponToDropName), transform.position, Quaternion.identity);
         newDrop.name = weaponToDropName;
         newDrop.GetComponent<Rigidbody2D>().AddForce(new Vector3(Random.Range(-0.5f, 0.5f), 1, 0) * throwPower);
-        newDrop.GetComponent<Rigidbody2D>().AddTorque(throwTorque);
+        newDrop.GetComponent<Rigidbody2D>().AddTorque(Random.Range(-1f, 1f) * throwTorque);
         Physics2D.IgnoreCollision(newDrop.GetComponent<Collider2D>(), GetComponent<Collider2D>());
 
         Destroy(weaponToDrop);
