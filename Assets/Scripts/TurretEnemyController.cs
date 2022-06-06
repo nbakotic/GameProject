@@ -12,7 +12,7 @@ public class TurretEnemyController : MonoBehaviour
     [Header("Values")]
     public float PlayerDistance; // Distance from Player
     public float AttackRange = 5.0f; // Distance in which turret will start attacking
-    public float Recoil = 3.0f; // Time between shoots (in seconds)
+    public float Recoil = 5; // Time between shoots (in seconds)
 
     [Header("Bullet attributes")]
     public float TurretBulletVelocity = 1.0f;
@@ -36,6 +36,6 @@ public class TurretEnemyController : MonoBehaviour
     {
         yield return new WaitForSeconds(Recoil);
         GameObject NewBullet = Instantiate(TurretBullet, Gun.position, Quaternion.identity);
-        NewBullet.GetComponent<Rigidbody2D>().velocity = new Vector2();
+        NewBullet.GetComponent<Rigidbody2D>().velocity = new Vector2(TurretBulletVelocity, 0);
     }
 }
