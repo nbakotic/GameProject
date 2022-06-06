@@ -9,10 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4552241945065147163}
-  - component: {fileID: 184172949562408866}
-  - component: {fileID: 4552241945065147157}
+  - component: {fileID: 6925026285546715940}
   m_Layer: 0
-  m_Name: Sniper
+  m_Name: AssaultRifle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -34,7 +33,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &184172949562408866
+--- !u!114 &6925026285546715940
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -43,31 +42,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 4552241945065147160}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a0da698b3f983f147bcbdc34d7176821, type: 3}
+  m_Script: {fileID: 11500000, guid: ec67cdb9996a49840ad683437aa48390, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   projectile: {fileID: 1393381692396101975, guid: 21c677260afff6a448b0a1e007b6db6c, type: 3}
-  projectileLaunchVelocity: 2000
-  shotsPerSecond: 1
+  projectileLaunchVelocity: 1000
+  shotsPerSecond: 3
   despawnProjectileOnImpact: 1
-  slowMoDuration: 2
-  slowMoTimeModf: 0.25
---- !u!58 &4552241945065147157
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4552241945065147160}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 0.5
+  burstRoundCount: 3
 --- !u!1 &4552241945464248542
 GameObject:
   m_ObjectHideFlags: 0
@@ -124,7 +106,7 @@ Transform:
   m_GameObject: {fileID: 4552241945855318619}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.35, y: -0.19, z: 0}
-  m_LocalScale: {x: 1, y: 0.1, z: 1}
+  m_LocalScale: {x: 0.9, y: 0.15, z: 1}
   m_Children: []
   m_Father: {fileID: 4552241945065147163}
   m_RootOrder: 0
@@ -170,7 +152,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 1
   m_Sprite: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
-  m_Color: {r: 1, g: 0, b: 0.8790331, a: 1}
+  m_Color: {r: 0, g: 1, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
