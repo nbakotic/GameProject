@@ -23,15 +23,18 @@ public class PlayerDeath : MonoBehaviour
             Die();
         }
 
-       if(collision.gameObject.CompareTag("hostile")){
-           Die();
-       }
-   }
-   private void Die(){
-       rb.bodyType = RigidbodyType2D.Static;
-       anim.SetTrigger("Death");
-   }
-   private void RestartLevel(){
-       SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-   }
+        if (collision.gameObject.CompareTag("hostile"))
+        {
+            Die();
+        }
+    }
+    private void Die()
+    {
+        rb.bodyType = RigidbodyType2D.Static;
+        anim.SetTrigger("Death");
+    }
+    private void RestartLevel()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
 }
