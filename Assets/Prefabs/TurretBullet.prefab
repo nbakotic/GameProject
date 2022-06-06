@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 1627646695257027592}
   m_Layer: 0
   m_Name: TurretBullet
-  m_TagString: hostile
+  m_TagString: turretbullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -100,12 +100,12 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 0
+  m_GravityScale: 0.1
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 4
+  m_Constraints: 0
 --- !u!58 &1627646695257027593
 CircleCollider2D:
   m_ObjectHideFlags: 0
