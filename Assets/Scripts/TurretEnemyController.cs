@@ -13,11 +13,11 @@ public class TurretEnemyController : MonoBehaviour
 
     [Header("Values")]
     public float PlayerDistance; // Distance from Player
-    public float AttackRange = 5.0f; // Distance in which turret will start attacking
-    public float Recoil = 5.0f; // Time between shoots
+    public float AttackRange = 10.0f; // Distance in which turret will start attacking
+    public float Recoil = 1.0f; // Time between shoots
 
     [Header("Bullet attributes")]
-    public float TurretBulletVelocity = 1;
+    public float TurretBulletVelocity = 10;
     public GameObject TurretBullet;
     
     void Start()

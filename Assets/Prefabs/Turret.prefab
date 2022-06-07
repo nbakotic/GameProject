@@ -150,9 +150,9 @@ MonoBehaviour:
   Player: {fileID: 0}
   Gun: {fileID: 5167028624840861441}
   PlayerDistance: 0
-  AttackRange: 5
-  Recoil: 3
-  TurretBulletVelocity: 1
+  AttackRange: 10
+  Recoil: 1
+  TurretBulletVelocity: 10
   TurretBullet: {fileID: 1627646695257027596, guid: eb9c897b67b6fa948bc8fe4a1eed4e74, type: 3}
 --- !u!114 &5167028623875044207
 MonoBehaviour:
