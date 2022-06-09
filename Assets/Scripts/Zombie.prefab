@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 6435067956108542959}
   - component: {fileID: 6435067956108542955}
   - component: {fileID: 6435067956108542952}
+  - component: {fileID: -4262631527052974589}
   m_Layer: 0
   m_Name: Zombie
   m_TagString: hostile
@@ -162,3 +163,19 @@ MonoBehaviour:
   ZombieVelocity: 5
   PlayerDistance: 0
   AttackRange: 5
+--- !u!70 &-4262631527052974589
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6435067956108542958}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_Size: {x: 2, y: 1}
+  m_Direction: 1
