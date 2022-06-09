@@ -14,5 +14,8 @@ public class SpawnObject : MonoBehaviour
         int rand = Random.Range(0, objects.Length);
         GameObject instance = (GameObject)Instantiate(objects[rand], transform.position, Quaternion.identity);
         instance.transform.parent = transform;
+
+        // Removes "(Clone)" from instanced object name so weapon switching can detect the weapon correctly
+        instance.name = objects[rand].name;
     }
 }
