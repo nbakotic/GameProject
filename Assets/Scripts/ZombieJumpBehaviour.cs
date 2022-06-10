@@ -11,12 +11,6 @@ public class ZombieJumpBehaviour : MonoBehaviour
     void Start()
     {
         Rb = this.GetComponent<Rigidbody2D>();
-    }
-
-    void OnTriggerEnter2D(Collider2D col)
-    {
-        if(col.gameObject.tag != "Player"){
-            Rb.AddForce(Vector2.up * JumpSpeed, ForceMode2D.Impulse);
-        }
+        Rb.AddForce(Vector2.up * JumpSpeed, ForceMode2D.Impulse);
     }
 }

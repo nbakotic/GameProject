@@ -26,6 +26,13 @@ public class ZombieEnemyController : MonoBehaviour
         }
     }
 
+    void OnTriggerEnter2D(Collider2D col)
+    {
+        if(col.gameObject.tag != "Player" && col.gameObject.tag != "hostile" && col.gameObject.tag != "Projectile"){
+            Rb.AddForce(Vector2.up * 2000f);
+        }
+    }
+
     /* Function for following and attacking Player */
     void Attack()
     {
