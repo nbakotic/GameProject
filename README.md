@@ -1,6 +1,6 @@
 ## 
 
-Latest opened issue [#44](https://github.com/nbakotic/GameProject/issues/44) (Actions issue testing 1).
+Latest opened issue [#45](https://github.com/nbakotic/GameProject/issues/45) (Actions issue testing 2).
 
 ---
 
