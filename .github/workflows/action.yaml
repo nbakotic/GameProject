@@ -6,10 +6,12 @@ jobs:
     check_latest_issue_created:
         runs-on: ubuntu-latest
         steps:
+        -   name: Get and save date
+            run: echo "DATE=${date '+%H:%M:%S %d.%m.%y'}" >> $GITHUB_ENV
         -   name: Update GitHub README
             uses: theboi/github-update-readme@v1.3.0
             env:
                 GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
             with:
-                header: "Latest issue (${{ github.event.issue.number }}) opened by ${{ github.actor }} at `date '+%H:%M:%S %d.%m.%y'`."
+                header: "Latest issue (#${{ github.event.issue.number }}) opened by ${{ github.actor }} at ${{ env.DATE }}."
                 repoCount: 0
