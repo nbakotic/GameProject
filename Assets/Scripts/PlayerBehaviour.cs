@@ -53,6 +53,10 @@ public class PlayerBehaviour : MonoBehaviour
         {
             PlayerTakeDamage(10);
         }
+        if(collision.gameObject.CompareTag("turretbullet"))
+        {
+            PlayerTakeDamage(20);
+        }
     }
 
     /* Trigger death animation and restart the level */
