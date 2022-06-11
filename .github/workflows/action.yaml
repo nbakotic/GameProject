@@ -7,11 +7,11 @@ jobs:
         runs-on: ubuntu-latest
         steps:
         -   name: Get and save date
-            run: echo "DATE=${date}" >> $GITHUB_ENV
+            run: echo "DATE=$(date)" >> $GITHUB_ENV
         -   name: Update GitHub README
             uses: theboi/github-update-readme@v1.3.0
             env:
                 GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
             with:
-                header: "Latest issue (#${{ github.event.issue.number }}) opened by ${{ github.actor }} at ${{ env.DATE }}."
+                subhead: "Latest issue [#${{ github.event.issue.number }}](${{ github.event.issue.url }}) opened by [${{ github.actor }}](https://github.com/${{ github.actor }}) at ${{ env.DATE }}."
                 repoCount: 0
