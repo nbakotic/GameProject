@@ -10,6 +10,7 @@ TagManager:
   - Trap
   - FallDetector
   - WorldWeapon
+  - turretbullet
   layers:
   - Default
   - TransparentFX
