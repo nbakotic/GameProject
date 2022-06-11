@@ -1,7 +1,7 @@
-name: Latest issue created
+name: Latest created issue
 on:
     issues:
-        type: opened
+        types: [opened]
 jobs:
     check_latest_issue_created:
         runs-on: ubuntu-latest
