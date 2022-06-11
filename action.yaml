@@ -1,0 +1,15 @@
+name: Latest issue created
+on:
+    issues:
+        type: opened
+jobs:
+    check_latest_issue_created:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Update GitHub README
+            uses: theboi/github-update-readme@v1.3.0
+            env:
+                GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+            with:
+                header: "Latest issue (${{ github.event.issue.number }}) opened by ${{ github.actor }} at `date '+%H:%M:%S %d.%m.%y'`."
+                repoCount: 0
