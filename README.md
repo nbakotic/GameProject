@@ -1,6 +1,6 @@
 ## 
 
-Latest opened issue [#53](https://github.com/nbakotic/GameProject/issues/53) (Action test 9).
+Latest opened issue [#54](https://github.com/nbakotic/GameProject/issues/54) (Review code complexity for some larger scripts).
 
 ---
 
@@ -8,4 +8,4 @@ Latest opened issue [#53](https://github.com/nbakotic/GameProject/issues/53) (Ac
 
 ---
 
-Opened by [aZina0](https://github.com/aZina0) on 11.06.22 17:08 CEST.
+Opened by [nbakotic](https://github.com/nbakotic) on 11.06.22 17:35 CEST.
