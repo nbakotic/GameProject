@@ -1,4 +1,4 @@
-## Latest issue (44) opened by aZina0 at `date '+%H:%M:%S %d.%m.%y'`.
+## Latest issue (#46) opened by aZina0 at .
 
 
 
