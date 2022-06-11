@@ -13,5 +13,5 @@ jobs:
             env:
                 GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
             with:
-                subhead: "Latest issue [#${{ github.event.issue.number }}](https://github.com/nbakotic/GameProject/issues/${{ github.event.issue.number }}) opened by [${{ github.actor }}](https://github.com/${{ github.actor }}) at ${{ env.DATE }}."
+                subhead: "Latest issue [#${{ github.event.issue.number }}](https://github.com/nbakotic/GameProject/issues/${{ github.event.issue.number }}) opened by [${{ github.actor }}](https://github.com/${{ github.actor }}) on ${{ env.DATE }}."
                 repoCount: 0
