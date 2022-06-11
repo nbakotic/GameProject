@@ -7,7 +7,7 @@ jobs:
         runs-on: ubuntu-latest
         steps:
         -   name: Get and save date
-            run: echo "DATE=${date '+%H:%M:%S %d.%m.%y'}" >> $GITHUB_ENV
+            run: echo "DATE=${date}" >> $GITHUB_ENV
         -   name: Update GitHub README
             uses: theboi/github-update-readme@v1.3.0
             env:
