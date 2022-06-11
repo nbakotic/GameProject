@@ -13,8 +13,6 @@ jobs:
             env:
                 GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
             with:
-                header: "test1"
                 subhead: "Latest opened issue [#${{ github.event.issue.number }}](https://github.com/nbakotic/GameProject/issues/${{ github.event.issue.number }}) (${{ github.event.issue.title }})."
                 footer: "Opened by [${{ github.actor }}](https://github.com/${{ github.actor }}) on ${{ env.DATE }}."
-                header: "test2"
                 repoCount: 0
