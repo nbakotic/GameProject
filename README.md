@@ -1,6 +1,6 @@
 ## 
 
-Latest opened issue [#54](https://github.com/nbakotic/GameProject/issues/54) (Review code complexity for some larger scripts).
+Latest opened issue [#55](https://github.com/nbakotic/GameProject/issues/55) (Adjust random gen border room creating).
 
 ---
 
@@ -8,4 +8,4 @@ Latest opened issue [#54](https://github.com/nbakotic/GameProject/issues/54) (Re
 
 ---
 
-Opened by [nbakotic](https://github.com/nbakotic) on 11.06.22 17:35 CEST.
+Opened by [aZina0](https://github.com/aZina0) on 14.06.22 18:31 CEST.
