@@ -9,6 +9,9 @@ public class SpawnRoom : MonoBehaviour
 
     [Header("Level Generator Variables")]
     [SerializeField] private LevelGeneration _levelGen;
+
+    private GameObject _currentRoom;
+
     void Update()
     {
         //A collider that detects other rooms
@@ -21,7 +24,8 @@ public class SpawnRoom : MonoBehaviour
         if (roomDetection == null && _levelGen._stopGeneration)
         {
             int rand = Random.Range(0, _levelGen.roomsArray.Length);
-            Instantiate(_levelGen.roomsArray[rand], transform.position, Quaternion.identity);
+            _currentRoom = Instantiate(_levelGen.roomsArray[rand], transform.position, Quaternion.identity);
+            _currentRoom.transform.parent = _levelGen._rooms.transform;
             Destroy(gameObject);
         }
     }

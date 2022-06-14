@@ -10,6 +10,7 @@ public class LevelGeneration : MonoBehaviour
     [Header("Scene Components")]
     [SerializeField] private GameObject _player;
     [SerializeField] private GameObject _exit;
+    [SerializeField] public GameObject _rooms;
     [SerializeField] private Transform[] _startingPositions;
     [SerializeField] public GameObject[] roomsArray;
     /* 0 - room with LEFT and RIGHT opening, LR
@@ -39,6 +40,7 @@ public class LevelGeneration : MonoBehaviour
         int randStartingPos = Random.Range(0, _startingPositions.Length);
         transform.position = _startingPositions[randStartingPos].position;
         _spawnRoom = Instantiate(roomsArray[0], transform.position, Quaternion.identity);
+        _spawnRoom.transform.parent = _rooms.transform;
 
         /*Generation can move left, right or down.
          *Left and right directions are favored.
@@ -77,6 +79,7 @@ public class LevelGeneration : MonoBehaviour
                 //select a random room from the array of rooms and instantiate it
                 int rand = Random.Range(0, roomsArray.Length);
                 _currentRoom = Instantiate(roomsArray[rand], transform.position, Quaternion.identity);
+                _currentRoom.transform.parent = _rooms.transform;
 
                 char[] directions = {'R', 'R', 'R', 'D'};
                 _generationDirection = directions[Random.Range(0, directions.Length)];
@@ -100,6 +103,7 @@ public class LevelGeneration : MonoBehaviour
                 //select a random room from the array of rooms and instantiate it
                 int rand = Random.Range(0, roomsArray.Length);
                 _currentRoom = Instantiate(roomsArray[rand], transform.position, Quaternion.identity);
+                _currentRoom.transform.parent = _rooms.transform;
 
                 char[] directions = {'L', 'L', 'D'};
                 _generationDirection = directions[Random.Range(0, directions.Length)];
@@ -137,6 +141,7 @@ public class LevelGeneration : MonoBehaviour
                          */
                         roomDetection.GetComponent<RoomTypeDetect>().RoomDestruction();
                         _currentRoom = Instantiate(roomsArray[3], transform.position, Quaternion.identity);
+                        _currentRoom.transform.parent = _rooms.transform;
                     }
                     else
                     {
@@ -150,6 +155,7 @@ public class LevelGeneration : MonoBehaviour
                             randBottomRoom = 1;
                         }
                         _currentRoom = Instantiate(roomsArray[randBottomRoom], transform.position, Quaternion.identity); //instantiate the new room
+                        _currentRoom.transform.parent = _rooms.transform;
                     }
 
                     if (newSpawnRoom)
@@ -165,6 +171,7 @@ public class LevelGeneration : MonoBehaviour
                 //instantiate one of the rooms that have top opening (2 or 3)
                 int rand = Random.Range(2, 4);
                 _currentRoom = Instantiate(roomsArray[rand], transform.position, Quaternion.identity);
+                _currentRoom.transform.parent = _rooms.transform;
 
                 char[] directions = {'L', 'L', 'R', 'R', 'D'};
                 _generationDirection = directions[Random.Range(0, directions.Length)];
