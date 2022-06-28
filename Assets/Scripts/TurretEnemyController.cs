@@ -23,6 +23,7 @@ public class TurretEnemyController : MonoBehaviour
     void Start()
     {
         Rb = this.GetComponent<Rigidbody2D>();
+        Player = GameObject.FindGameObjectWithTag("Player").transform;
         CanAttack = true;
     }
 

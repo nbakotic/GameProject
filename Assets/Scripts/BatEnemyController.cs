@@ -13,6 +13,7 @@ public class BatEnemyController : MonoBehaviour
     void Start()
     {
         _rb = this.GetComponent<Rigidbody2D>();
+        Player = GameObject.FindGameObjectWithTag("Player").transform;
     }
 
     void FixedUpdate()

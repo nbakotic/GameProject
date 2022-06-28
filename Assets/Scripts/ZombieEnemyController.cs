@@ -16,6 +16,7 @@ public class ZombieEnemyController : MonoBehaviour
     void Start()
     {
         Rb = this.GetComponent<Rigidbody2D>();
+        Player = GameObject.FindGameObjectWithTag("Player").transform;
     }
 
     void Update()
